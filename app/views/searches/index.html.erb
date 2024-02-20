@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <input type="text" id="search-box" placeholder="Search...">
+
+  <h1>SEARCHES</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Query</th>
+        <th>Session ID</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @searches.each do |search| %>
+        <tr>
+          <td><%= search.query %></td>
+          <td><%= search.session_id %></td>
+          <td><%= search.search_events.map(&:query).join(', ') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>
