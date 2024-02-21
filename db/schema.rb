@@ -10,26 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_124644) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_21_102856) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "search_events", force: :cascade do |t|
-    t.bigint "search_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "event_type"
-    t.string "session_id"
-    t.string "query"
-    t.index ["search_id"], name: "index_search_events_on_search_id"
-  end
 
   create_table "searches", force: :cascade do |t|
     t.string "query"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "session_id"
+    t.string "ip_address"
   end
 
-  add_foreign_key "search_events", "searches"
 end

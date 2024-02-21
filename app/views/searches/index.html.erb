@@ -7,27 +7,41 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <input type="text" id="search-box" placeholder="Search...">
+  <div class="container">
+    <div class="input-group my-3">
+      <input type="text" id="search-box" class="form-control" placeholder="Search...">
+      <div class="input-group-append">
+        <button id="search-button" class="btn btn-outline-secondary">Search</button>
+      </div>
+    </div>
 
-  <h1>SEARCHES</h1>
+    <h4 class="text-center">SEARCHES</h4>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Query</th>
-        <th>Session ID</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @searches.each do |search| %>
+    <table class="table">
+      <thead class="thead-light">
         <tr>
-          <td><%= search.query %></td>
-          <td><%= search.session_id %></td>
-          <td><%= search.search_events.map(&:query).join(', ') %></td>
+          <th>Query</th>
+          <th>Session ID</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @searches.each do |search| %>
+          <tr>
+            <td><%= search.query %></td>
+            <td><%= search.session_id %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+      <h4 class="text-center">ANALYTICS</h4>
+      <ul id="most-common-queries" class="list-group mb-3"></ul>
+  </div>
+
+  <script type="module">
+    import { start as startSearch } from "controllers/search";
+    startSearch();
+  </script>
 </body>
 </html>

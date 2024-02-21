@@ -2,42 +2,28 @@ class SearchesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index
-    @searches = Search.includes(:search_events).all
+    @searches = Search.all
   end
 
   def create
-    @search = Search.create(search_params)
+    @search = Search.create(search_params.merge(ip_address: request.remote_ip))
 
     if @search.persisted?
+      Rails.cache.delete('most_common_queries')
       render json: { message: 'Search was successfully logged.' }, status: :created
     else
       render json: { errors: @search.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def finalize_search
-    @search = Search.find_by(session_id: search_params[:session_id])
-
-    if @search
-      @search.update(search_params)
-    else
-      @search = Search.create(search_params)
+  def analytics
+    most_common_queries = Rails.cache.fetch('most_common_queries', expires_in: 12.hours) do
+      Search.group(:query).order('count_id DESC').limit(10).count(:id)
     end
-
-    SearchEvent.where(session_id: @search.session_id).update_all(search_id: @search.id)
-
-    if @search.persisted?
-      render json: { message: 'Search was successfully logged.' }, status: :created
-    else
-      render json: { errors: @search.errors.full_messages }, status: :unprocessable_entity
-    end
+    render json: most_common_queries
   end
 
   private
-
-  def search_event_params
-    params.require(:search_event).permit(:search_id, :event_type, :session_id)
-  end
 
   def search_params
     params.require(:search).permit(:query, :session_id)
