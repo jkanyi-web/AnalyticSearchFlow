@@ -59,13 +59,15 @@ This app is a Real-time search analytics platform providing insights into user s
 </details>
 
 ### Key Features <a name="key-features"></a>
+- Real-time search analytics
+- User search trends and behavior
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link]()
+- [Live Demo Link](https://analyticsearchflow.onrender.com/)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -124,6 +126,8 @@ rspec --format documentation
 
 
 ## 🔭 Future Features <a name="future-features"></a>
+- Add user login and sign up pages
+- Add user search history
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
