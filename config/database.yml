@@ -82,6 +82,4 @@ test:
 #
 production:
   <<: *default
-  database: analytic_search_flow_production
-  username: analytic_search_flow
-  password: <%= ENV["ANALYTIC_SEARCH_FLOW_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
