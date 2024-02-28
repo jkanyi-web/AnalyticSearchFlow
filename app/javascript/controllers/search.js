@@ -1,5 +1,3 @@
-console.log('search.js loaded');
-
 export function start() {
   var searchBox = document.getElementById('search-box');
   var searchButton = document.getElementById('search-button');
@@ -9,7 +7,6 @@ export function start() {
   var delay = 2500;
 
   var fetchAndLogAnalytics = function () {
-    console.log('fetchAndLogAnalytics called');
     fetch('/analytics', {
       headers: {
         'Content-Type': 'application/json',
